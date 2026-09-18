@@ -1,0 +1,2 @@
+<stdin>:7:8: error(lean.unknownIdentifier): Unknown identifier `Broersma.main`
+<stdin>:8:14: error(lean.unknownIdentifier): Unknown constant `Broersma.main`

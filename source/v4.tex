@@ -1,0 +1,1532 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+%\usepackage{booktabs}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{standalone}
+\usepackage{amsmath}
+\usepackage{upgreek}
+\usetikzlibrary{calc}
+
+
+\definecolor{crossedge}{HTML}{B8C0CC}
+\definecolor{circulantedge}{HTML}{718096}
+\definecolor{matchingedge}{HTML}{E05A47}
+
+
+
+\definecolor{circulantedge}{HTML}{718096}
+\definecolor{matchingedge}{HTML}{E05A47}
+
+\hypersetup{colorlinks=false}
+
+
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\cl}{\operatorname{cl}}
+
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+%\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{plain}
+\newtheorem{fact}[theorem]{Fact}
+\theoremstyle{definition}
+\newtheorem{cons}[theorem]{Construction}
+%\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\theoremstyle{plain}
+\newtheorem{claim}{Claim}[section]
+
+\title{Hamiltonicity of 3/2-tough $2K_2$-free graphs}
+\author{
+Xiaozheng Chen\footnote{School of Mathematics and Statistics, Zhengzhou University, Zhengzhou 450000, P.R. China. Email: cxz@zzu.edu.cn. Supported by the National Natural Science Foundation of China (No. 12301457).}
+, Bo Ning\footnote{College of Computer Science, Nankai University, Tianjin 300350, P.R. China. Email: bo.ning@nankai.edu.cn. Partially supported by the National Natural Science Foundation of China (No. 12371350) and the Fundamental Research Funds for the Central Universities, Nankai University (No. 63243151).}}
+\date{}
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A graph is $2K_2$-free if it contains no induced subgraph isomorphic to
+$2K_2$. Broersma, Patel, and Pyatkin proved in 2014 that every
+25-tough $2K_2$-free graph on at least three vertices is Hamiltonian.
+Shan reduced the sufficient toughness bound to $3$ in 2020, and
+Ota and Sanka reduced it to $2$ in 2022. We prove that
+$3/2$-toughness suffices, answering a question of Ota and Sanka.
+The bound is best possible.
+\end{abstract}
+
+\medskip
+\noindent\textbf{Keywords.} Toughness, $2K_2$-free graph, Hamilton cycle, independent set
+
+\medskip
+\noindent\textbf{2020 Mathematics Subject Classification.} 05C35, 05C38, 05C75.
+
+
+\section{Introduction}\label{sec:introduction}
+
+All graphs considered here are finite and simple. A graph is
+\emph{Hamiltonian} if it has a cycle containing all its vertices.
+For a graph $G$, let $\omega(G)$ denote its number of components.
+For $t\geq0$, the graph $G$ is \emph{$t$-tough} if
+$|S|\geq t\omega(G-S)$ for every $S\subseteq V(G)$ with
+$\omega(G-S)>1$. 
+The toughness of $G$, denoted $\uptau(G)$, 
+is the maximum value of $t$ for which $G$ is $t$-tough
+(for $K_n$ we define $\uptau(G)=\infty$).
+In particular,
+$G$ is $3/2$-tough precisely when $2|S|\geq3\omega(G-S)$
+for every $S\subseteq V(G)$ with $\omega(G-S)>1$.
+ It is well known that every Hamiltonian graph is 1-tough. 
+In 1973, Chv\'atal \cite{Chvatal1973} proposed the following conjecture.
+
+\begin{conj}[Chv\'atal~\cite{Chvatal1973}]\label{conj:Chvatal}
+    There exists a constant $t_0$ such that every $t_0$-tough graph on at least three vertices is Hamiltonian.
+\end{conj}
+
+In 2000, Bauer, Broersma and Veldman~\cite{BauerBroersmaVeldman2000} showed
+that, for every $0\leq t<9/4$, there exists a non-Hamiltonian
+$t$-tough graph. Thus any constant $t_0$ satisfying Chv\'atal's
+conjecture must be at least $9/4$.
+Toughness conditions for Hamiltonicity have been studied in many
+restricted graph classes, including planar graphs, claw-free graphs
+and chordal graphs. For background and related results, we refer
+the reader to the survey by Bauer, Broersma and
+Schmeichel~\cite{BauerBroersmaSchmeichel2006}.
+
+This paper concerns toughness and Hamiltonicity in $2K_2$-free
+graphs. A graph is \emph{$2K_2$-free} if it contains no induced
+subgraph isomorphic to the disjoint union of two edges.
+In 2014, Broersma, Patel, and Pyatkin proved the following theorem.
+
+\begin{theorem}[Broersma, Patel, and Pyatkin~\cite{BroersmaPatelPyatkin2014}]\label{thm:25-tough}
+    Every 25-tough $2K_2$-free graph on at least three vertices is Hamiltonian.
+\end{theorem}
+
+Shan~\cite{Shan2020} reduced the sufficient
+toughness bound to $3$, and Ota and Sanka~\cite{OtaSanka2022}
+further reduced it to $2$.
+
+A graph is split if its vertex set can be partitioned into a clique
+and an independent set. Every split graph is $2K_2$-free: any two
+vertex-disjoint edges have adjacent endpoints in the clique.
+
+Kratsch, Lehel and M\"uller~\cite{KratschLehelMuller1996} proved the following theorem.
+
+\begin{theorem}\label{thm:KratschLehelMuller1996}
+    Every $3/2$-tough split graph on at least three vertices is
+Hamiltonian.
+\end{theorem}
+
+
+Ota and Sanka~\cite{OtaSanka2022} asked whether $3/2$-toughness   
+suffices for $2K_2$-free graphs.
+In this paper, we give an affirmative
+answer. 
+The result extends the Hamiltonicity result of
+Kratsch, Lehel and M\"uller~\cite{KratschLehelMuller1996} from
+split graphs to the strictly larger class of $2K_2$-free graphs
+under the same $3/2$-toughness condition.
+
+\begin{theorem}\label{thm:main}
+Every $3/2$-tough $2K_2$-free graph on at least three vertices
+is Hamiltonian.
+\end{theorem}
+
+The bound is best possible, even for split graphs.
+We recall the construction of
+Chv\'atal~\cite{Chvatal1973}.
+For a positive integer $h$, take pairwise disjoint sets
+$S$, $R$,
+$T$, with $|S|=h$, $|R|=|T|=2h+1$.
+Make every vertex of $S$ adjacent to all other vertices, make $R$
+a clique and $T$ independent, and place precisely the matching
+edges $r_it_i$ between $R$ and $T$.
+The resulting graph $H_h$ is split, with clique $S\cup R$, and
+$\uptau(H_h)=3h/(2h+1)=3/2-3/(4h+2)$, which approaches $3/2$
+from below as $h\to\infty$.
+Moreover, $H_h$ has no $2$-factor. Indeed, a $2$-factor would have $2|T|=4h+2$ edges
+incident with $T$, whereas at most $2|S|+|R|=4h+1$ are possible.
+Consequently, for every $0\leq t<3/2$, some $H_h$ is a non-Hamiltonian
+$t$-tough $2K_2$-free graph.
+
+
+The organization of this paper is as follows.
+In Section~\ref{sec:preliminaries}, we bound the orders of paths and cycles
+containing a prescribed independent set. In Section~\ref{sec:maximum-independent}, we give these bounds and Theorem~\ref{thm:KratschLehelMuller1996}; consequently, for every maximum independent set of a non-Hamiltonian counterexample, there exists a cycle of order 
+$|V(G)|-1$ containing it. We construct two maximum
+independent sets with a common nonempty part $I_0$.
+In Section~\ref{sec:proof}, we use path rotations and the corresponding
+cycles to give an upper bound on $|N_G(I_0)|$ that contradicts
+$3/2$-toughness.
+
+\section{Two lemmas on paths and cycles}\label{sec:preliminaries}
+
+For a graph $G$, we write $|G|=|V(G)|$ and $\alpha(G)$ for its
+independence number.
+For $X\subseteq V(G)$, let $N_G(X)=\bigcup_{x\in X}N_G(x)$.
+We   set $N_X(v)=N_G(v)\cap X$ and $N_X(Y)=N_G(Y)\cap X$,
+omitting the subscript $G$ when the graph is fixed.
+Two disjoint vertex sets are anticomplete if no edge joins them.
+The order of a path or cycle is its number of vertices.
+A single vertex is allowed as a path; a cycle has at least three
+vertices. A path or cycle $Q$ in $G$ is called \emph{dominating} if
+$G-V(Q)$ is edgeless, or equivalently, if
+$V(G)\setminus V(Q)$ is independent.
+For an oriented path or cycle $P$, we write $x_P^-$ and
+$x_P^+$ for the predecessor and successor of $x$, when they exist,
+and $X_P^-=\{x_P^-:x\in X,\ x_P^-\text{ exists}\}$, with
+$X_P^+$ defined similarly. For a subgraph $H$ of $G$ and
+$X\subseteq V(H)$, $N_H(X)$ denotes the union of the neighbourhoods
+of vertices of $X$ in $H$, whereas $H[X]$ is the subgraph of $H$
+induced by $X$.
+Subscripts are omitted when the path or cycle is fixed.
+The notation $xPy$ denotes the segment from $x$ to $y$ in the
+chosen direction, and $x\overleftarrow{P}y$ denotes the segment
+in the reverse direction.
+
+\begin{fact}\label{fact:2K2-property}
+   If $G$ is $2K_2$-free, then the following statements hold.
+\begin{enumerate}[label=\textup{(\roman*)},nosep]
+ \item For every two vertex-disjoint edges \(xy,uv\in E(G)\), at least one of
+$xu,\ xv,\ yu,\ yv$ is an edge of \(G\).
+    \item For every nonempty independent set $I\subseteq V(G)$ and every two
+    nonadjacent vertices $x,y\in V(G)$, the sets $N_I(x)$ and $N_I(y)$
+    are comparable by inclusion; that is,
+        $N_I(x)\subseteq N_I(y)$ or
+        $N_I(y)\subseteq N_I(x)$.
+        Consequently, every nonempty independent set
+$U\subseteq V(G)\setminus I$ contains a vertex $u$ with
+$N_I(u)=N_I(U)$.
+\item For every $X\subseteq V(G)$, the graph $G-X$ has at most one
+    component containing an edge.
+\end{enumerate}
+\end{fact}
+
+\begin{proof}
+Statement (i) follows immediately from the definition of a
+$2K_2$-free graph.
+
+For (ii), suppose to the contrary that $N_I(x)\not\subseteq N_I(y)$ and $N_I(y)\not\subseteq N_I(x)$. Then there exist
+$u\in N_I(x)\setminus N_I(y)$ and $v\in N_I(y)\setminus N_I(x)$.
+Since $I$ is independent, $uv\notin E(G)$. Moreover,
+$xy,uy,xv\notin E(G)$. Hence the four vertices $x,u,y,v$
+induce the two disjoint edges $xu$ and $yv$, that is,
+an induced $2K_2$, a contradiction.
+
+For (iii), suppose that $G-X$ has two distinct components
+$H_1$ and $H_2$ and each contains an edge. Choose
+    $x_1y_1\in E(H_1)$ and 
+    $x_2y_2\in E(H_2)$.
+Since $H_1$ and $H_2$ are distinct components of $G-X$, there is
+no edge between $\{x_1,y_1\}$ and $\{x_2,y_2\}$. Thus
+$\{x_1,y_1,x_2,y_2\}$ induces a $2K_2$, a contradiction.
+\end{proof}
+
+\begin{lemma}\label{lem:predecessor-structure}
+Let $G$ be a $2K_2$-free graph and let $J$ be an independent set
+in $G$. Consider either an oriented dominating path $P=v_0v_1\cdots v_s$
+containing $J$, with $v_0,v_s\notin J$, or an oriented dominating cycle $C$
+containing $J$. Let $U$ be the set of vertices outside the chosen
+path or cycle. Suppose that $M=N_J(U)\neq\varnothing$,
+and choose $u\in U$ with $N_J(u)=M$.
+  Set
+\[
+    D=
+    \begin{cases}
+        M_P^-\cup\{v_s\},&\text{in the path case},\\
+        M_C^-,&\text{in the cycle case},
+    \end{cases}
+    \qquad
+    T=\{x\in D:N_U(x)=\varnothing,\,
+                   N_J(x)\setminus M\neq\varnothing\}.
+\]
+In the path case, assume that no path $P'$ containing $J$ with
+both endvertices outside $J$ satisfies either of the following:
+\begin{enumerate}[label=\textup{(\alph*)},nosep]
+    \item $V(P')=V(P)\cup X$ for some
+    $\varnothing\neq X\subseteq U$;
+    \item $V(P')=(V(P)\setminus\{x\})\cup\{u\}$ for some $x\in T$.
+\end{enumerate}
+In the cycle case, impose the corresponding assumptions on cycles
+$C'$, with $C,C'$ in place of $P,P'$ and without an endvertex
+condition. Then the following statements hold.
+\begin{enumerate}[label=\textup{(\roman*)},nosep]
+    \item $D\cap J=\varnothing$, $D$ is independent, and $u$ is
+    anticomplete to $D$. Every vertex of $U$ has at most one
+    neighbour in $D$, and $|D\cap N(U)|\leq1$.
+    In the path case, $|D|=|M|+1$ and both endvertices of $P$
+    are anticomplete to $U$; in the cycle case, $|D|=|M|$.
+
+    \item For every $x\in T$, we have $N_J(x)\supsetneq M$,
+    the predecessor $x^-$ exists, $ux^-\notin E(G)$,
+    $x^-\notin M\cup D$, and
+    \begin{equation}\label{eq:ND-predecessor}
+        N_D(x^-)=\{x\}.
+    \end{equation}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+All predecessors and successors are taken on the chosen path or
+cycle. Since $J$ is independent, the predecessors of vertices of
+$M$ lie outside $J$. The predecessor map is injective; in the path
+case, $v_s$ lies outside $J$ and is not a predecessor. This proves
+$D\cap J=\varnothing$ and the assertions about $|D|$.
+
+In the path case, neither endvertex has a neighbour in $U$, since
+such a neighbour would extend $P$, contrary to (a). If $x\in D$
+has a successor and $ux\in E(G)$, inserting $u$ into the edge
+$xx^+$    contradicts (a), because $x^+\in M=N_J(u)$.
+Thus $u$ is anticomplete to $D$ in both cases.
+
+Suppose that distinct vertices $x,z\in D$ are adjacent. In the
+path case, assume that $x$ precedes $z$. If $z\neq v_s$, the path
+$v_0P xz\overleftarrow P x^+uz^+P v_s$ has vertex set
+$V(P)\cup\{u\}$; if $z=v_s$, use
+$v_0P xv_s\overleftarrow P x^+u$ instead. In the cycle case,
+$xz\overleftarrow C x^+uz^+C x$ has vertex set $V(C)\cup\{u\}$.
+In each construction the indicated old segments are disjoint and
+partition the original vertex set. Each therefore contradicts (a),
+so $D$ is independent.
+
+Suppose that $y\in U$ has two neighbours $x,z\in D$. Then $y\neq u$.
+In the path case, neither neighbour is an endvertex; ordering $x$
+before $z$, the path $v_0P xyz\overleftarrow P x^+uz^+P v_s$
+has vertex set $V(P)\cup\{u,y\}$. In the cycle case, use
+$xyz\overleftarrow C x^+uz^+C x$, whose vertex set is
+$V(C)\cup\{u,y\}$. Both contradict (a). Hence every vertex of
+$U$ has at most one neighbour in $D$. Since $U$ and $D$ are
+independent, Fact~\ref{fact:2K2-property}\textup{(ii)} implies that
+the sets $N_D(y)$, $y\in U$, are linearly ordered by inclusion.
+It follows that $|D\cap N(U)|\leq1$, proving (i).
+
+Let $x\in T$. Since $xu\notin E(G)$,
+Fact~\ref{fact:2K2-property}\textup{(ii)} and the definition of $T$
+give $N_J(x)\supsetneq N_J(u)=M$. In the path case, $x\neq v_0$:
+otherwise $uv_1P v_s$ would be a path excluded by (b).
+Thus $x^-$ exists in either case.
+
+If $ux^-\in E(G)$, then in the path case use
+$v_0P x^-ux^+P v_s$ when $x\neq v_s$, and $v_0P v_s^-u$
+when $x=v_s$. In the cycle case, replace $x^-xx^+$ by $x^-ux^+$.
+Each operation replaces $x$ by $u$, contrary to (b).
+Consequently $ux^-\notin E(G)$ and $x^-\notin M$.
+Also $x^-\notin D$, since its successor is $x\notin J$, whereas
+every vertex of $D$ other than $v_s$ in the path case, and every
+vertex of $D$ in the cycle case, has its successor in $M$.
+
+Suppose that $x^-z\in E(G)$ for some $z\in D\setminus\{x\}$.
+In the path case, one of the following paths replaces $x$ by $u$:
+\[
+\begin{cases}
+ v_0P x^-z\overleftarrow P x^+uz^+P v_s,
+   &x,z\neq v_s\text{ and }x\text{ precedes }z,\\
+ v_0P zx^-\overleftarrow P z^+ux^+P v_s,
+   &x,z\neq v_s\text{ and }z\text{ precedes }x,\\
+ v_0P x^-v_s\overleftarrow P x^+u,
+   &z=v_s,\\
+ v_0P zv_s^-\overleftarrow P z^+u,
+   &x=v_s.
+\end{cases}
+\]
+The relation $x^-\notin M\cup D$ ensures that the indicated old
+segments are disjoint and partition $V(P)\setminus\{x\}$.
+Each path contains $J$ and has both endvertices outside $J$.
+In the cycle case, the corresponding cycle is
+$x^-z\overleftarrow C x^+uz^+C x^-$: its old arcs $x^+Cz$ and
+$z^+Cx^-$ partition $V(C)\setminus\{x\}$. All these constructions
+contradict (b). Since $x^-x\in E(G)$, this proves
+\eqref{eq:ND-predecessor} and hence (ii).
+\end{proof}
+
+\begin{lemma}\label{lem:path}
+Let $G$ be a $2K_2$-free graph and let $J$ be an independent set
+in $G$. Suppose that $V(G)$ is covered by a family $\mathcal P$
+of pairwise vertex-disjoint paths, each with both endvertices
+outside $J$. A single vertex outside $J$ is allowed as a path.
+Then the following statements hold.
+\begin{enumerate}[label=\textup{(\roman*)},nosep]
+    \item If $G$ is nonempty, then it has a path containing
+    $J$ with both endvertices outside $J$.
+
+    \item If $G$ is nonempty and $\ell$ is the maximum order
+    of such a path, then
+    \begin{equation}\label{eq:path-bound}
+        \alpha(G)\geq |J|+|G|-\ell.
+    \end{equation}
+
+    \item The vertex set $V(G)$ can be covered by at most
+    $\alpha(G)-|J|+1$ pairwise vertex-disjoint paths, each with
+    both endvertices outside $J$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+If $G$ is empty, (iii) follows by taking the empty family, while
+(i) and (ii) do not apply. Hence assume that $G$ is nonempty.
+
+\noindent
+(i) The assertion is immediate if $J=\varnothing$.
+Otherwise, discard the paths in $\mathcal P$ disjoint from $J$,
+orient each remaining path, and shorten it to the segment from the
+predecessor of its first vertex in $J$ to the successor of its last
+vertex in $J$. Let $\mathcal P_J$ be the resulting family.
+Its paths are vertex-disjoint, their intersections with $J$
+partition $J$, and each endvertex lies outside $J$ and is
+adjacent along its path to a vertex of $J$.
+
+If $|\mathcal P_J|\geq2$, choose distinct paths
+$P_1=v_0v_1\cdots v_s$ and $P_2=u_0u_1\cdots u_t$ in this
+family. Then $v_1,u_1\in J$ and $v_0,v_s,u_0,u_t\notin J$.
+The edges $v_0v_1,u_0u_1$ are disjoint, and $v_1u_1\notin E(G)$.
+By $2K_2$-freeness, at least one of $v_0u_0,v_0u_1,u_0v_1$
+is an edge. Accordingly, let
+\[
+P_3=
+\begin{cases}
+ v_s\overleftarrow {P_1}v_0u_0P_2u_t,
+   &v_0u_0\in E(G),\\
+ v_s\overleftarrow {P_1}v_0u_1P_2u_t,
+   &v_0u_0\notin E(G),\ v_0u_1\in E(G),\\
+ v_s\overleftarrow {P_1}v_1u_0P_2u_t,
+   &\text{otherwise}.
+\end{cases}
+\]
+The set $(V(P_1)\cup V(P_2))\setminus V(P_3)$ is either empty,
+$\{v_0\}$, or $\{u_0\}$; in every case it is disjoint from $J$. The new endvertices are $v_s,u_t$,
+and their incident path edges are unchanged. Replacing $P_1,P_2$
+by $P_3$ therefore preserves all the stated properties and reduces
+the number of paths by one. Repeating this operation gives a single
+path containing $J$, proving (i).
+
+\medskip
+\noindent
+(ii) Let $\ell$ be the maximum order of a path containing $J$
+with both endvertices outside $J$.
+
+\begin{claim}\label{claim:U-independent}
+Every such path of order $\ell$ is dominating.
+\end{claim}
+
+\begin{proof}
+Let $P=v_0v_1\cdots v_{\ell-1}$ be such a path and   set
+$U=V(G)\setminus V(P)$. If $\ell=1$, then $J=\varnothing$
+and $G$ is edgeless. Otherwise, suppose that $xy\in E(G[U])$.
+If $v_0$ has a neighbour among $x,y$, say $x$, then
+$yxv_0P v_{\ell-1}$ is a longer path of the required type.
+If not, $2K_2$-freeness applied to $v_0v_1,xy$ gives, after
+interchanging $x,y$ if necessary, $v_1x\in E(G)$. The path
+$yxv_1P v_{\ell-1}$ has order $\ell+1$ and still contains $J$
+with both endvertices outside $J$, since $v_0\notin J$.
+Both cases contradict the choice of $\ell$.
+\end{proof}
+
+If $J=\varnothing$, take a longest path $P$ and an endvertex $v_0$.
+The vertex $v_0$ has no neighbour outside $P$, so the claim gives
+$\alpha(G)\geq |G|-\ell+1$. Hence \eqref{eq:path-bound} holds.
+
+Suppose now that $J\neq\varnothing$ and, to the contrary, that
+$\alpha(G)<|J|+|G|-\ell$. Then $\ell<|G|$.
+Let $\mathcal P_0$ consist of the dominating paths $P$ containing $J$
+with both endvertices outside $J$.
+By Claim~\ref{claim:U-independent}, this family
+contains a path of order $\ell$.
+Choose $P_0\in\mathcal P_0$ first with maximum order and then
+with $|N_J(V(G)\setminus V(P_0))|$ maximum.   Set
+$U_0=V(G)\setminus V(P_0)$ and $m_0=|N_J(U_0)|$.
+For $r\geq1$, once $m_0,\ldots,m_{r-1}$ are defined, let
+$\mathcal P_r$ consist of the paths $P\in\mathcal P_0$ satisfying
+\begin{equation}\label{eq:path-count}
+    \bigl|\{v\in V(G)\setminus V(P):|N_J(v)|>m_i\}\bigr|
+    \geq r+1-i \qquad (0\leq i<r).
+\end{equation}
+Whenever $\mathcal P_r\neq\varnothing$, choose $P_r$ first with
+maximum order in $\mathcal P_r$ and then with
+$|N_J(V(G)\setminus V(P_r))|$ maximum.   Set
+$U_r=V(G)\setminus V(P_r)$ and $m_r=|N_J(U_r)|$.
+We prove inductively that
+\begin{equation}\label{eq:path-order}
+    \mathcal P_r\neq\varnothing,\qquad
+    |P_r|=\ell-r,\qquad m_0<m_1<\cdots<m_r.
+\end{equation}
+The assertion for $r=0$ follows from the initial choice.
+
+Assume that \eqref{eq:path-order} holds for all indices up to $r$.
+Write $P=P_r=v_0v_1\cdots v_s$, $U=U_r$, and $M=N_J(U)$.
+If $M=\varnothing$, then $J\cup U$ is independent of order
+$|J|+|G|-\ell+r$, contrary to our assumption.
+Thus $M\neq\varnothing$. By
+Fact~\ref{fact:2K2-property}\textup{(ii)}, choose $u\in U$ with
+$N_J(u)=M$.   Set $D=M_P^-\cup\{v_s\}$ and
+$T=\{x\in D:N_U(x)=\varnothing,\,
+N_J(x)\setminus M\neq\varnothing\}$.
+In particular, $|N_J(u)|=|M|=m_r$.
+
+We verify the two assumptions of
+Lemma~\ref{lem:predecessor-structure}.
+First, suppose that a path $P'$ containing $J$ with both
+endvertices outside $J$ has vertex set $V(P)\cup X$, where
+$\varnothing\neq X\subseteq U$, and   set $k=|X|$.
+If $k>r$, then $|P'|=\ell-r+k>\ell$, a contradiction.
+Otherwise   set $t=r-k$. For every $i<t$, at least
+$r+1-i-k=t+1-i$ vertices outside $P'$ have more than $m_i$
+neighbours in $J$. Hence $P'\in\mathcal P_t$ and
+$|P'|=\ell-t=|P_t|$.
+Moreover, \eqref{eq:path-count} for $P_r$ with $i=t$ gives at
+least $k+1$ vertices of $U$ having more than $m_t$ neighbours
+in $J$. At most $k$ lie in $X$, so one remains outside $P'$,
+contrary to the choice of $m_t$.
+
+Second, for $x\in T$, the nonedge $xu$ and
+Fact~\ref{fact:2K2-property}\textup{(ii)} give
+$N_J(x)\supsetneq M$. A path $P'$ of the required type with
+vertex set $(V(P)\setminus\{x\})\cup\{u\}$ would be dominating,
+since $V(G)\setminus V(P')=(U\setminus\{u\})\cup\{x\}$
+and $N_U(x)=\varnothing$.
+Replacing $u$ by $x$ in the set of vertices outside the path leaves every count in
+\eqref{eq:path-count} unchanged, since
+$|N_J(x)|>m_r=|N_J(u)|>m_i$ for $i<r$.
+Thus $P'\in\mathcal P_r$ and $|P'|=|P_r|$, but the vertex $x$,
+which lies outside $P'$, has more than $m_r$ neighbours in $J$,   a
+contradiction. Lemma~\ref{lem:predecessor-structure} therefore
+applies to $P$.
+
+\medskip
+\noindent
+\textbf{Case 1: $|T|\leq1$.}
+
+We show that at most one vertex of $D$ belongs to $N(U)\cup T$.
+This follows from Lemma~\ref{lem:predecessor-structure}(i) when
+$T=\varnothing$. Suppose that $T=\{x\}$ and that $z\in D$
+has a neighbour $y\in U$. Then $z\neq x,v_s$ and $y\neq u$.
+The edges $x^-x,zy$ have no cross-edges $x^-z,xz,xy$, by
+\eqref{eq:ND-predecessor}, the independence of $D$, and the
+definition of $T$. Thus $x^-y\in E(G)$ by $2K_2$-freeness.
+Define
+\[
+P'=
+\begin{cases}
+ v_0P x^-yz\overleftarrow P x^+uz^+P v_s,
+   &x\text{ precedes }z,\\
+ v_0P zyx^-\overleftarrow P z^+ux^+P v_s,
+   &z\text{ precedes }x\neq v_s,\\
+ v_0P zyv_s^-\overleftarrow P z^+u,
+   &x=v_s.
+\end{cases}
+\]
+The indicated old segments partition $V(P)\setminus\{x\}$.
+Thus $P'$ contains $J$, has both endvertices outside $J$, and
+has vertex set $(V(P)\setminus\{x\})\cup\{u,y\}$.
+Moreover, $P'$ is dominating, since
+$V(G)\setminus V(P')=(U\setminus\{u,y\})\cup\{x\}$
+and $N_U(x)=\varnothing$.
+
+If $r=0$, then $|P'|=\ell+1$, a contradiction. If $r\geq1$,
+then for every $i<r-1$, passing from $U$ to
+$(U\setminus\{u,y\})\cup\{x\}$ decreases the count in \eqref{eq:path-count} by
+at most one. At least $r-i=(r-1)+1-i$ such vertices remain,
+so $P'\in\mathcal P_{r-1}$ and $|P'|=|P_{r-1}|$.
+However, $x$ lies outside $P'$ and satisfies
+$|N_J(x)|>m_r>m_{r-1}$, contrary to the choice of $m_{r-1}$.
+Consequently $D\cap N(U)=\varnothing$ when $T=\{x\}$,
+and in either case at most one vertex of $D$ belongs to
+$N(U)\cup T$.
+
+The set
+$U\cup\bigl(D\setminus(N(U)\cup T)\bigr)\cup(J\setminus M)$
+is independent: the middle part is anticomplete to both $U$
+and $J\setminus M$, and $N_J(U)=M$.
+Its order is at least
+$|U|+(|D|-1)+|J\setminus M|=|U|+|J|$.
+Since $|U|=|G|-\ell+r$, this contradicts our assumption.
+
+\medskip
+\noindent
+\textbf{Case 2: $|T|\geq2$.}
+
+Choose distinct $x,z\in T$, with $x$ preceding $z$ on $P$.
+By Lemma~\ref{lem:predecessor-structure}, their predecessors
+lie outside $M\cup D$, and the edges $x^-x,z^-z$ have no
+cross-edges $xz,x^-z,z^-x$.
+Thus $x^-z^-\in E(G)$ by $2K_2$-freeness. Let
+\[
+P'=
+\begin{cases}
+ v_0P x^-z^-\overleftarrow P x^+uz^+P v_s,
+   &z\neq v_s,\\
+ v_0P x^-v_s^-\overleftarrow P x^+u,
+   &z=v_s.
+\end{cases}
+\]
+The old segments partition $V(P)\setminus\{x,z\}$.
+Hence $P'$ contains $J$, has both endvertices outside $J$,
+and has order $|P_r|-1$. It is dominating, since
+$V(G)\setminus V(P')=(U\setminus\{u\})\cup\{x,z\}$,
+$U,D$ are independent, and $x,z$ are anticomplete to $U$.
+
+For every $i<r$, passing from $U$ to $(U\setminus\{u\})\cup\{x,z\}$
+increases the count in \eqref{eq:path-count} by one, giving
+at least $r+2-i$ vertices above the threshold $m_i$.
+For $i=r$, the vertices $x,z$ provide the two required vertices,
+since $|N_J(x)|,|N_J(z)|>m_r$. Thus
+$P'\in\mathcal P_{r+1}$, so $\mathcal P_{r+1}\neq\varnothing$.
+As $\mathcal P_{r+1}\subseteq\mathcal P_r$, its maximum path
+order is at most $|P_r|$. Equality would contradict the choice
+of $m_r$, since every $Q\in\mathcal P_{r+1}$ has a vertex
+outside $Q$ with more than $m_r$ neighbours in $J$.
+The path $P'$ attains order $|P_r|-1$, so
+$|P_{r+1}|=\ell-(r+1)$. The new threshold    gives
+$m_{r+1}>m_r$, completing the induction.
+
+Under our contrary assumption, Case~1 is impossible, so Case~2
+proves the induction step for every $r$. This produces an infinite strictly
+increasing sequence $m_0<m_1<\cdots$, although $m_r\leq|J|$
+for every $r$. This contradiction proves \eqref{eq:path-bound}.
+
+\medskip
+\noindent
+(iii) Take a path of order $\ell$ as in (ii), together with the
+trivial paths on all vertices outside this path. These form a spanning family
+of $|G|-\ell+1$ vertex-disjoint paths with both endvertices outside
+$J$. By \eqref{eq:path-bound}, their number is at most
+$\alpha(G)-|J|+1$.
+\end{proof}
+
+\begin{lemma}\label{lem:cycle}
+Let $G$ be a $2K_2$-free graph and let $J$ be an independent set
+in $G$. Suppose that $G$ has a dominating cycle containing $J$.
+If $\ell$ is the maximum order of such a cycle, then
+\begin{equation}\label{eq:cycle-bound}
+    \alpha(G)\geq |J|+|G|-\ell-1.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal F_0$ be the family of dominating cycles containing $J$.
+Choose $C_0\in\mathcal F_0$ first with maximum order and then
+with $|N_J(V(G)\setminus V(C_0))|$ maximum.   Set
+$\ell_0=|C_0|=\ell$, $U_0=V(G)\setminus V(C_0)$, and
+$m_0=|N_J(U_0)|$.
+For $r\geq1$, once $m_0,\ldots,m_{r-1}$ are defined, let
+$\mathcal F_r$ consist of the cycles $C\in\mathcal F_0$ satisfying
+\begin{equation}\label{eq:cycle-count}
+    \bigl|\{v\in V(G)\setminus V(C):|N_J(v)|>m_i\}\bigr|
+    \geq r+1-i \qquad (0\leq i<r).
+\end{equation}
+Whenever $\mathcal F_r\neq\varnothing$, choose $C_r$ first
+with maximum order in $\mathcal F_r$ and then with
+$|N_J(V(G)\setminus V(C_r))|$ maximum.   Set
+$\ell_r=|C_r|$, $U_r=V(G)\setminus V(C_r)$, and $m_r=|N_J(U_r)|$.
+We argue by induction: either the desired bound follows from an
+independent set, or the next extremal cycle satisfies
+\begin{equation}\label{eq:cycle-order}
+    \ell_r=\ell_0-r,\qquad
+    m_0<m_1<\cdots<m_r\leq|J|.
+\end{equation}
+
+Assume that \eqref{eq:cycle-order} holds for all indices up to $r$,
+and write $C=C_r$, $U=U_r$, and $M=N_J(U)$.
+If $M=\varnothing$, then $J\cup U$ is independent and gives the
+required bound, since $|U|=|G|-\ell_0+r$. Otherwise, choose $u\in U$ with $N_J(u)=M$ by
+Fact~\ref{fact:2K2-property}\textup{(ii)}. Orient $C$ and   set
+$A=M_C^-$ and
+$T=\{x\in A:N_U(x)=\varnothing,\,
+N_J(x)\setminus M\neq\varnothing\}$.
+
+%We first verify the two extremal conditions needed for
+%Lemma~\ref{lem:predecessor-structure}.
+
+Suppose that a cycle $C'$ satisfies
+    $V(C')=V(C)\cup X$
+for some nonempty $X\subseteq U$, and   set $k=|X|$.
+If $k>r$, then
+    $|C'|=\ell_0-r+k>\ell_0$,
+contrary to the choice of $C_0$.
+Thus $1\leq k\leq r$.   Set $t=r-k$.
+For every $i<t$, the set $V(G)\setminus V(C')=U\setminus X$
+contains at least
+   $ r+1-i-k=t+1-i$
+vertices with more than $m_i$ neighbours in $J$.
+Hence $C'\in\mathcal F_t$, and
+    $|C'|=\ell_0-t=\ell_t$.
+Moreover, applying \eqref{eq:cycle-count} to $C_r$ with $i=t$
+shows that at least $k+1$ vertices of $U$ have more than $m_t$
+neighbours in $J$. Since at most $k$ of them belong to $X$,
+at least one remains outside $C'$. Thus
+    $|N_J(V(G)\setminus V(C'))|>m_t$,
+contrary to the choice of $C_t$. Therefore no such cycle $C'$
+exists.
+
+Now let $x\in T$. Since $xu\notin E(G)$ and
+$N_J(x)\setminus M\neq\varnothing$,
+Fact~\ref{fact:2K2-property}\textup{(ii)} gives
+    $N_J(x)\supsetneq M$,
+and hence $|N_J(x)|>m_r$.
+Suppose that a cycle $C'$ satisfies
+   $ V(C')=(V(C)\setminus\{x\})\cup\{u\}$.
+The cycle $C'$ is dominating, since
+$V(G)\setminus V(C')=(U\setminus\{u\})\cup\{x\}$
+and $N_U(x)=\varnothing$.
+For every $i<r$, both $u$ and $x$ have more than $m_i$
+neighbours in $J$, so replacing $u$ by $x$ does not decrease
+any of the counts in \eqref{eq:cycle-count}.
+Thus $C'\in\mathcal F_r$ and $|C'|=\ell_r$.
+Since $x\notin V(C')$ and $N_J(x)\supsetneq M$, however,
+    $|N_J(V(G)\setminus V(C'))|>m_r$,
+contrary to the choice of $C_r$.
+
+The two assumptions of
+Lemma~\ref{lem:predecessor-structure} are therefore satisfied.
+Applying its cycle case with $D=A$ gives
+$|A|=|M|$ together with all the stated independence and
+predecessor properties of $A$ and $T$.
+
+\medskip
+\noindent
+\textbf{Case 1: $|T|\leq1$.}
+
+If $T=\varnothing$, then $|A\cap N(U)|\leq1$.
+Suppose that $T=\{x\}$ and that $z\in A$ has a neighbour
+$y\in U$. Then $z\neq x$ and $y\neq u$.
+By Lemma~\ref{lem:predecessor-structure}, the edges $x^-x,zy$
+have no cross-edges $x^-z,xz,xy$, so $x^-y\in E(G)$.
+The cycle
+ $   C'=x^-yz\overleftarrow C x^+uz^+C x^-$
+has vertex set $(V(C)\setminus\{x\})\cup\{u,y\}$:
+its old arcs $x^+Cz$ and $z^+Cx^-$ partition $V(C)\setminus\{x\}$.
+Moreover, $C'$ is dominating, since
+$V(G)\setminus V(C')=(U\setminus\{u,y\})\cup\{x\}$
+and $N_U(x)=\varnothing$.
+If $r=0$, then $|C'|=\ell_0+1$, a contradiction.
+Suppose that $r\ge1$. For each $i<r-1$, both $u$ and $x$ have
+more than $m_i$ neighbours in $J$. Thus replacing $U$ by
+$(U\setminus\{u,y\})\cup\{x\}$ decreases the count in \eqref{eq:cycle-count}
+by at most one. At least $r-i=(r-1)+1-i$ vertices remain above
+the threshold $m_i$, so $C'\in\mathcal F_{r-1}$.
+Moreover, $|C'|=\ell_r+1=\ell_{r-1}$, whereas
+ $|N_J(V(G)\setminus V(C'))|
+ \ge |N_J(x)|>m_r>m_{r-1}$.
+This contradicts the second extremal choice of $C_{r-1}$.
+
+Hence at most one vertex of $A$ belongs to $N(U)\cup T$.
+As in the path case, the set
+$U\cup\bigl(A\setminus(N(U)\cup T)\bigr)\cup(J\setminus M)$
+is independent. Its order is at least
+$|U|+(|A|-1)+|J\setminus M|=|J|+|U|-1$.
+This gives the required bound because $|U|=|G|-\ell_0+r$.
+
+\medskip
+\noindent
+\textbf{Case 2: $|T|\geq2$.}
+
+Choose distinct $x,z\in T$.
+Lemma~\ref{lem:predecessor-structure} and $2K_2$-freeness give
+$x^-z^-\in E(G)$, exactly as in the path case. The six vertices
+$x^-,x,x^+,z^-,z,z^+$ are distinct and occur in this cyclic order.
+Consequently
+    $C'=x^-z^-\overleftarrow C x^+uz^+C x^-$
+is a cycle with vertex set $(V(C)\setminus\{x,z\})\cup\{u\}$:
+its old arcs $x^+Cz^-$ and $z^+Cx^-$ partition
+$V(C)\setminus\{x,z\}$. The cycle $C'$ is dominating, since
+$V(G)\setminus V(C')=(U\setminus\{u\})\cup\{x,z\}$,
+$U,A$ are independent, and $x,z$ are anticomplete to $U$.
+
+For each $i<r$, the vertex $u$ is replaced outside the cycle by
+$x,z$, and all three vertices have more than $m_i$ neighbours in $J$.
+Thus the count in \eqref{eq:cycle-count} increases by one and is at least $r+2-i$.
+For the new threshold $m_r$, both $x$ and $z$ have more than $m_r$
+neighbours in $J$, giving the two required vertices.
+Consequently $C'\in\mathcal F_{r+1}$, so this family is nonempty.
+Since $\mathcal F_{r+1}\subseteq\mathcal F_r$, its maximum cycle
+order is at most $\ell_r$. If equality held, a maximum-order cycle
+$Q\in\mathcal F_{r+1}$ would also have maximum order in
+$\mathcal F_r$, but the defining condition for $\mathcal F_{r+1}$
+at $i=r$ would imply
+$ |N_J(V(G)\setminus V(Q))|>m_r$,
+contrary to the choice of $C_r$.
+Together with $|C'|=\ell_r-1$, this gives
+$\ell_{r+1}=\ell_r-1$. The same condition, applied to $C_{r+1}$,
+gives $m_{r+1}>m_r$, completing the induction.
+
+Case~2 cannot apply for every $r$, since it would give an infinite
+strictly increasing sequence of integers $m_r\leq|J|$. Hence, for
+some $r$, either $M=\varnothing$ or Case~1 gives
+\[
+    \alpha(G)\geq |J|+|U_r|-1
+    =|J|+|G|-\ell_0+r-1
+    \geq |J|+|G|-\ell-1,
+\]
+which proves \eqref{eq:cycle-bound}.
+\end{proof}
+
+\begin{corollary}\label{claim:cycle-restricted}
+Let $G$ be a $2K_2$-free graph, let $J$ be an independent set,
+and let $\mathcal H$ be a nonempty family of dominating cycles
+containing $J$.
+
+Starting with $\mathcal F_0=\mathcal H$, define the families
+$\mathcal F_r$ and the numbers $m_r$ successively.
+For each nonempty $\mathcal F_r$, choose $C_r\in\mathcal F_r$
+first with maximum order and then with
+$|N_J(V(G)\setminus V(C_r))|$ maximum, and set
+ $U_r=V(G)\setminus V(C_r), m_r=|N_J(U_r)|$.
+For $r\ge1$, once $m_0,\ldots,m_{r-1}$ are defined,
+let $\mathcal F_r$ consist of the cycles $C\in\mathcal H$ satisfying
+\[
+ \bigl|\{v\in V(G)\setminus V(C):|N_J(v)|>m_i\}\bigr|
+ \ge r+1-i\qquad(0\le i<r).
+\]
+
+For each selected $C_r$ with $M=N_J(U_r)\ne\emptyset$,
+write $C=C_r$ and $U=U_r$, choose $u\in U$ with $N_J(u)=M$,
+orient $C$, and set
+\[
+ A=M_C^-,\qquad
+ T=\{x\in A:N_U(x)=\emptyset,\;N_J(x)\setminus M\ne\emptyset\}.
+\]
+Suppose that at each such stage the following cycles of $G$,
+whenever they exist, belong to $\mathcal H$:
+\begin{enumerate}[nosep]
+\item[(a)] Every cycle with vertex set $V(C)\cup X$, where
+$\emptyset\ne X\subseteq U$.
+
+\item[(b)] Every cycle with vertex set
+$(V(C)\setminus\{x\})\cup\{u\}$, where $x\in T$.
+
+\item[(c)] The cycle
+ $x^-yz\overleftarrow{C}x^+uz^+Cx^-$,
+when $T=\{x\}$ and vertices $z\in A\setminus\{x\}$ and
+$y\in U\setminus\{u\}$ satisfy $zy\in E(G)$.
+
+\item[(d)] The cycle
+$ x^-z^-\overleftarrow{C}x^+uz^+Cx^-$,
+for distinct $x,z\in T$.
+\end{enumerate}
+All predecessors, successors and segments in (c) and (d) are taken
+on $C$. If $\ell_{\mathcal H}$ is the maximum order of a cycle in
+$\mathcal H$, then
+ $\alpha(G)\ge |J|+|G|-\ell_{\mathcal H}-1$.
+\end{corollary}
+
+\begin{proof}
+Repeat the induction in Lemma~\ref{lem:cycle} with
+$\mathcal F_0=\mathcal H$ and $\ell_0=\ell_{\mathcal H}$.
+At each stage with $M\ne\emptyset$, conditions (a) and (b)
+ensure that the first two extremal comparisons take place in
+$\mathcal H$. The order comparisons and the threshold counts in \eqref{eq:cycle-count}
+exclude these cycles exactly as in that proof.
+These comparisons establish the two hypotheses of Lemma~\ref{lem:predecessor-structure},
+which can therefore be applied with $D=A$.
+
+With the independence and predecessor properties from Lemma~\ref{lem:predecessor-structure}
+established, conditions (c) and (d) ensure that the cycles constructed
+in Cases~1 and~2 also belong to $\mathcal H$.
+The same argument consequently gives either an independent set
+of order at least $|J|+|G|-\ell_{\mathcal H}-1$, or a nonempty
+family $\mathcal F_{r+1}$ with
+\[
+ |C_{r+1}|=|C_r|-1,\qquad m_{r+1}>m_r.
+\]
+The latter alternative cannot persist, since $m_r\le |J|$.
+The case $M=\emptyset$ is handled by the independent set $J\cup U$,
+as in Lemma~\ref{lem:cycle}. This proves the inequality.
+\end{proof}
+
+In particular, suppose that every vertex outside a cycle must lie
+in a fixed set. A cycle with vertex set $V(C_r)\cup X$ preserves
+this restriction. In each of the other replacements, every vertex
+of $V(C_r)\setminus V(C')$ has more than $m_r$ neighbours in $J$.
+It therefore suffices to check that these vertices lie in the
+prescribed set.
+
+\section{Two maximum independent sets}
+\label{sec:maximum-independent}
+
+Suppose that $G$ is a
+non-Hamiltonian $3/2$-tough $2K_2$-free graph of order $n\geq 3$, and
+set $\alpha=\alpha(G)$. 
+Since $G$ is not complete, $\alpha\geq 2$.
+Moreover, $n\ge 5$.
+Otherwise if $n\in\{3,4\}$ and $x,y$ are nonadjacent, deleting
+the other $n-2$ vertices contradicts $3/2$-toughness.
+
+\subsection{Cycles of order \texorpdfstring{$n-1$}{n-1}}
+\label{subsec:near-spanning-cycles}
+
+We first 
+show that every maximum independent set \(I\) is contained in a cycle of order \(n-1\).
+\begin{lemma}\label{lem:n-1cycle}
+For every maximum independent set $I$ of $G$, there is a cycle of
+order $n-1$ containing $I$.
+\end{lemma}
+
+\begin{proof}
+Let $I$ be a maximum independent set and   set $S=V(G)\setminus I$.
+Since $G-S$ has $\alpha$ components, toughness gives
+$|S|\geq 3\alpha/2>\alpha$.
+Complete $S$ to a clique, obtaining a split graph $G^+$.
+For every $X\subseteq V(G)$, we have
+$\omega(G^+-X)\leq\omega(G-X)$, so $G^+$ remains $3/2$-tough.
+By Theorem \ref{thm:KratschLehelMuller1996}, $G^+$ contains
+a Hamilton cycle.
+
+This cycle has $2\alpha$ edges between $I$ and $S$, and
+$|S|-\alpha>0$ edges within $S$.
+Delete all edges of the latter kind, including those belonging to $G$.
+The remaining graph is a spanning disjoint union of paths in $G$.
+Every vertex of $I$ still has degree two, so all path ends, including
+singleton paths, belong to $S$.
+Lemma~\ref{lem:path}\textup{(iii)}, applied with $J=I$, covers
+$V(G)$ by at most $\alpha-|I|+1=1$ such path. Hence $G$ has a
+Hamilton path with both endvertices outside $I$.
+
+Write this path as
+$P=v_0v_1\cdots v_{n-2}v_{n-1}$.
+Since $G$ is non-Hamiltonian,
+$v_0v_{n-1}\notin E(G)$.
+The edges $v_0v_1$ and $v_{n-2}v_{n-1}$ are vertex-disjoint
+because $n\geq5$.
+Thus at least one of
+$v_0v_{n-2}$, $v_1v_{n-1}$, and $v_1v_{n-2}$ is an edge.
+If $v_0v_{n-2}\in E(G)$, then
+$v_0Pv_{n-2}v_0$ is a cycle of order $n-1$.
+If $v_1v_{n-1}\in E(G)$, then
+$v_1Pv_{n-1}v_1$ is a cycle of order $n-1$.
+Otherwise, $v_1v_{n-2}\in E(G)$, and
+$v_1Pv_{n-2}v_1$ is a cycle of order $n-2\geq3$
+with exactly $v_0$ and $v_{n-1}$ outside it. These vertices are
+nonadjacent. Thus in every case there is a dominating cycle $Q$
+containing $I$.
+If $\ell$ is the maximum order of such a cycle,
+Lemma~\ref{lem:cycle} gives
+$\alpha\geq |I|+n-\ell-1$, and hence $\ell\geq n-1$.
+Since $G$ is non-Hamiltonian, $\ell=n-1$.
+
+\end{proof}
+
+
+\subsection{Two maximum independent sets}
+\label{subsec:extremal-pair}
+
+Set
+ $D=\{z\in V(G):G-z\text{ has a Hamilton cycle}\}$.
+By Lemma~\ref{lem:n-1cycle}, $D\setminus I\neq\varnothing$
+for every maximum independent set $I$.
+
+Fix a maximum independent set $I$ and choose $u\in D\setminus I$ such
+that
+ $m=|N_I(u)|=\max_{z\in D\setminus I}|N_I(z)|$.
+We have $m\geq 1$ by the maximality of $I$.
+Since $I$ is independent, the choice of $u$    gives
+\begin{equation}\label{eq:s3-D-bound}
+ |N_I(z)|\leq m\qquad(z\in D).
+\end{equation}
+
+
+\begin{lemma}\label{prop:s3-omitted-vertices}
+Let $Q$ be a dominating cycle of order $n-2$ containing $I$, and write
+$V(G)\setminus V(Q)=\{r,s\}$.
+If $|N_I(r)|>m$, then $s\in D$.
+\end{lemma}
+
+\begin{proof}
+By \eqref{eq:s3-D-bound}, $r\notin D$.
+Suppose that $s\notin D$ as well.
+Let $\mathcal H$ consist of the dominating cycles $C$ containing $I$
+for which $V(G)\setminus V(C)$ is disjoint from $D$.
+Then $Q\in\mathcal{H}$.
+The maximum order of a cycle in $\mathcal{H}$ is $n-2$: the given
+cycle attains this order, a Hamilton cycle is excluded, and the
+unique vertex outside a cycle of order $n-1$ would belong to $D$.
+Choose $C_0\in\mathcal{H}$ first of maximum order and then with
+$m_0=|N_I(U_0)|$ maximum, where $U_0=V(G)\setminus V(C_0)$.
+Since $Q$    has maximum order and $|N_I(r)|>m$, we have $m_0>m$.
+
+Use the extremal construction of Lemma~\ref{lem:cycle} with
+$\mathcal F_0=\mathcal H$ and $J=I$. We verify the required closure
+conditions in the order in which they are needed. Suppose that the
+induction has reached $C_i$ with \eqref{eq:cycle-order} established up to index $i$.
+In particular, $|C_i|=n-2-i$ and $m_i\ge m_0>m$.
+Write $U_i=V(G)\setminus V(C_i)$ and $M_i=N_I(U_i)$.
+Since $I$ is a maximum independent set and $U_i\ne\emptyset$,
+we have $M_i\ne\emptyset$. By Fact~\ref{fact:2K2-property}(ii), choose $w\in U_i$
+with $N_I(w)=M_i$. Orient $C_i$ and set
+\[
+ A_i=(M_i)^-_{C_i},\qquad
+ T_i=\{x\in A_i:N_{U_i}(x)=\emptyset,\;
+                         N_I(x)\setminus M_i\ne\emptyset\}.
+\]
+The independence of $I$ gives $A_i\cap I=\emptyset$.
+For every $x\in T_i$, the nonedge $xw$ and Fact~\ref{fact:2K2-property}\textup{(ii)} give
+$N_I(x)\supsetneq M_i$. Hence
+ $|N_I(x)|>m_i\ge m_0>m$,
+and therefore $x\notin D$ by \eqref{eq:s3-D-bound}.
+
+A comparison cycle with vertex set $V(C_i)\cup X$, where
+$\emptyset\ne X\subseteq U_i$, has outside vertex set $U_i\setminus X$.
+A comparison cycle with vertex set
+$(V(C_i)\setminus\{x\})\cup\{w\}$, where $x\in T_i$, has outside
+vertex set $(U_i\setminus\{w\})\cup\{x\}$.
+Both cycles are dominating and contain $I$, and their outside
+vertex sets are disjoint from $D$. Thus these cycles belong to
+$\mathcal H$ without any
+use of Lemma~\ref{lem:predecessor-structure}. The first two extremal comparisons in the proof of
+Lemma~\ref{lem:cycle} consequently exclude them. The cycle case of Lemma~\ref{lem:predecessor-structure} now applies to $C_i$,
+with $J=I$, $u=w$, and its set $D$ taken to be $A_i$.
+In particular, $A_i$ is independent.
+
+The remaining two constructions have outside vertex sets
+\[
+ (U_i\setminus\{w,y\})\cup\{x\}
+ \quad\text{and}\quad
+ (U_i\setminus\{w\})\cup\{x,z\},
+\]
+respectively, where $x,z\in T_i$ are distinct in the second
+construction and $y\in U_i\setminus\{w\}$ in the first.
+Both constructed cycles are dominating, since $C_i$ is dominating,
+$T_i\subseteq A_i$ is independent, and $T_i$ is anticomplete to $U_i$.
+Their outside vertex sets are disjoint from $D$, since
+$T_i\cap D=\emptyset$. The constructed cycles also contain $I$,
+so they belong to $\mathcal H$.
+The remaining steps of Lemma~\ref{lem:cycle} therefore either give the required
+independent-set bound or establish \eqref{eq:cycle-order} at index $i+1$.
+This verifies the closure hypothesis of Corollary~\ref{claim:cycle-restricted} throughout
+the induction. Applying the corollary with $\ell_{\mathcal H}=n-2$
+gives
+ $\alpha\ge |I|+n-(n-2)-1=\alpha+1$,
+a contradiction.
+\end{proof}
+
+Let $C$ be any oriented Hamilton cycle of $G-u$, and set
+$I_0=I\setminus N_I(u)$. Since $I$ is independent,
+$N_I(u)_C^-\subseteq N_G(u)_C^-\setminus I$ and
+$|N_I(u)_C^-|=m$.
+
+\begin{lemma}\label{lem:s3-structure}
+The following assertions hold.
+\begin{enumerate}[label=\textup{(\roman*)},nosep]
+\item[\textup{(i)}]
+The set $N_G(u)_C^+\cup\{u\}$ is independent. In particular,
+$d_G(u)\leq\alpha-1$ (see \cite[Lemma~3.3 and its proof]{OtaSanka2022}).
+
+\item[\textup{(ii)}]
+Exactly one vertex $a\in N_I(u)_C^-$ has a neighbour in $I_0$.
+Moreover, $N_I(a)\supsetneq N_I(u)$,
+$N_G(u)_C^-\setminus I=N_I(u)_C^-$,
+$N_I(u)_C^-\setminus D=\{a\}$, and
+$ua_C^-\notin E(G)$.
+Exactly one vertex of $N_I(u)_C^+$ has a neighbour in $I_0$ as well.
+
+\item[\textup{(iii)}]
+For every $x\in N_G(u)\setminus I$, both $x_C^-$ and $x_C^+$ belong
+to $I_0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+All predecessors and successors in the proof are taken on $C$.
+By \cite[Proposition~1.6]{OtaSanka2022}, $G$ has a $2$-factor.
+Choose a $2$-factor $F$ of $G$ with the minimum number of components.
+Since $G$ is non-Hamiltonian, $\omega(F)\geq2$, whereas $F'=C$
+is a $2$-factor of $G-u$ with $\omega(F')=1$.
+Thus $u$ is co-absorbable with respect to $F$.
+Taking $F'=C$ in \cite[Lemma~3.3 and its proof]{OtaSanka2022}
+gives \textup{(i)}, with successors taken on $C$.
+Applying the same result to the reverse orientation of $C$ shows
+that $N_G(u)_C^-\cup\{u\}$ is independent as well. In particular,
+$N_G(u)_C^-\cap N_G(u)=\varnothing$.
+
+If no vertex of $N_I(u)_C^-$ has a neighbour in $I_0$, then
+$\{u\}\cup N_I(u)_C^-\cup I_0$ is independent of order
+$\alpha+1$.
+Choose a vertex $a\in N_I(u)_C^-$ with a neighbour $x\in I_0$.
+For every $y\in N_I(u)$, the edges $ax,uy$ have no cross edges
+$au,xu,xy$.
+Thus $ay\in E(G)$, proving $N_I(a)\supsetneq N_I(u)$.
+It follows from \eqref{eq:s3-D-bound} that $a\notin D$.
+
+We next establish the predecessor relations needed to determine the
+remaining vertices of $N_G(u)_C^-\setminus I$.
+For every $x\in N_G(u)_C^-\setminus D$, we have
+\begin{equation}\label{eq:s3-predecessor-switch}
+    ux^-\notin E(G),\qquad
+    N_{N_G(u)_C^-}(x^-)=\{x\}.
+\end{equation}
+Indeed,   set $y=x^+$.
+If $ux^-\in E(G)$, replacing $x^-xy$ on $C$ by $x^-uy$ gives
+a Hamilton cycle of $G-x$, contrary to $x\notin D$.
+Hence $x^-\notin N_G(u)$.
+Also, $x^-\notin N_G(u)_C^-$, since $x^-x$ is an edge and
+$N_G(u)_C^-$ is independent.
+
+Suppose that $x^-z\in E(G)$ for some
+$z\in N_G(u)_C^-\setminus\{x\}$, and   set $t=z^+$.
+The cycle $x^-z\overleftarrow{C}yutCx^-$ has vertex set
+$V(G)\setminus\{x\}$.
+To see that it is simple, note that the order on $C$ is
+$x^-,x,y,\ldots,z,t,\ldots,x^-$.
+The vertex $x^-$ lies outside
+$N_G(u)\cup N_G(u)_C^-$, whereas
+$x,z\in N_G(u)_C^-$ and $y,t\in N_G(u)$, so these five vertices are distinct; $u$ lies outside $C$.
+The arcs $yCz$ and $tCx^-$ are disjoint and cover
+$V(C)\setminus\{x\}$.
+This   contradicts $x\notin D$, proving
+\eqref{eq:s3-predecessor-switch}.
+
+For distinct $x,z\in N_G(u)_C^-\setminus D$, the vertices
+$x,x^-,z,z^-$ are distinct, and the edges $xx^-,zz^-$ have no
+cross edges $xz,xz^-,zx^-$.
+Consequently, $x^-z^-\in E(G)$ by $2K_2$-freeness.
+
+Suppose now that
+$x\in\bigl(N_G(u)_C^-\setminus I\bigr)\setminus\{a\}$ and
+$x\notin D$.
+Since $a,x\in N_G(u)_C^-\setminus D$, the preceding paragraph gives
+$a^-x^-\in E(G)$.
+Writing $y=a^+$ and $z=x^+$, we obtain the cycle
+$a^-x^-\overleftarrow{C}yuzCa^-$.
+The six old vertices $a^-,a,y,x^-,x,z$ are distinct: the vertices
+$a^-,x^-$ lie outside $N_G(u)\cup N_G(u)_C^-$, while
+$a,x\in N_G(u)_C^-$ and $y,z\in N_G(u)$.
+Its two old arcs $yCx^-$ and $zCa^-$ are disjoint and partition
+$V(C)\setminus\{a,x\}$.
+It is therefore a simple cycle of order $n-2$ containing $I$, with
+$V(G)\setminus V(Q)=\{a,x\}$, where $Q$ denotes this cycle.
+As $ax\notin E(G)$, $Q$ is dominating. Since $|N_I(a)|>m$,
+Lemma~\ref{prop:s3-omitted-vertices} gives $x\in D$, a
+contradiction.
+Thus
+$\bigl(N_G(u)_C^-\setminus I\bigr)\setminus\{a\}\subseteq D$.
+
+If a vertex $x$ in this set had a neighbour $y\in I_0$, then, for
+every $z\in N_I(u)$, the edges $xy,uz$ and the nonedges
+$xu,yu,yz$ would force $xz\in E(G)$.
+This would give $|N_I(x)|>m$, contrary to
+\eqref{eq:s3-D-bound}.
+Hence
+$\bigl(N_G(u)_C^-\setminus I\bigr)\setminus\{a\}$
+is anticomplete to $I_0$, and
+$I_0\cup\bigl((N_G(u)_C^-\setminus I)\setminus\{a\}\bigr)
+\cup\{u\}$ is independent.
+Its order is $\alpha-m+|N_G(u)_C^-\setminus I|$, so
+$|N_G(u)_C^-\setminus I|\leq m$.
+Together with
+$N_I(u)_C^-\subseteq N_G(u)_C^-\setminus I$ and
+$|N_I(u)_C^-|=m$, this yields
+$N_G(u)_C^-\setminus I=N_I(u)_C^-$ and
+$N_I(u)_C^-\setminus D=\{a\}$.
+It    shows that $a$ is the unique vertex of $N_I(u)_C^-$ with
+a neighbour in $I_0$.
+The nonedge $ua^-\notin E(G)$ follows from
+\eqref{eq:s3-predecessor-switch}.
+
+Finally, let $x\in N_G(u)\setminus I$.
+If $x^-\notin I$, then
+$x^-\in N_G(u)_C^-\setminus I=N_I(u)_C^-$, and hence
+$x\in N_I(u)$, a contradiction.
+Thus $x^-\in I$.
+Since $x^-\in N_G(u)_C^-$ is nonadjacent to $u$, we have
+$x^-\in I_0$.
+The arguments above hold for either orientation of $C$.
+Applying them to the reverse orientation shows that exactly one
+vertex of $N_I(u)_C^+$ has a neighbour in $I_0$ and that
+$x_C^+\in I_0$.
+This completes the proof of \textup{(ii)} and \textup{(iii)}.
+\end{proof}
+
+Among all pairs $(I,u)$ with $I$ a maximum independent set and
+$u\in D\setminus I$, choose one for which $|I\cap D|$ is maximum and,
+subject to this, $|N_I(u)|$ is maximum.
+Lemma~\ref{lem:n-1cycle} guarantees that such pairs exist.
+This choice    attains the fixed-$I$ maximum used in
+\eqref{eq:s3-D-bound}.
+Choose any oriented Hamilton cycle $C$ of $G-u$, and retain the
+notation $m,I_0,a$ above.
+  Set $K_0=\{u\}\cup\bigl(N_I(u)_C^-\setminus\{a\}\bigr)$ and
+$I'=I_0\cup K_0$.
+
+\begin{lemma}\label{lem:secindependent}
+The set $I'$ is a maximum independent set.
+Moreover, $N_I(u)\subseteq D$, and there is a vertex
+$v\in N_I(u)$ such that $N_{I'}(v)=K_0$ and $(I',v)$ attains the
+same two maxima as $(I,u)$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:s3-structure}, the set $K_0$ is independent,
+anticomplete to $I_0$, and has order $m$.
+Also, $K_0\subseteq D$, since $u\in D$ and
+$N_I(u)_C^-\setminus\{a\}\subseteq D$.
+Thus $I'$ is independent of order $|I_0|+m=\alpha$.
+Its intersection with $D$ is obtained from $I\cap D$ by deleting
+$N_I(u)\cap D$ and adding the $m$ vertices of $K_0$.
+Since Lemma~\ref{lem:n-1cycle}    gives $D\setminus I'\neq\varnothing$,
+the first maximum in the choice of $(I,u)$ forces
+$N_I(u)\subseteq D$ and $|I'\cap D|=|I\cap D|$.
+
+The sets $N_{K_0}(z)$, for $z\in N_I(u)$, are linearly ordered by
+inclusion.
+Otherwise, two vertices of $N_I(u)$ with incomparable
+neighbourhoods, together with one vertex in each set difference,
+would induce a $2K_2$, since both $N_I(u)$ and $K_0$ are independent.
+Their union is $K_0$: the vertex $u$ is adjacent to every vertex of
+$N_I(u)$, and every vertex of
+$N_I(u)_C^-\setminus\{a\}$ has its cycle successor in $N_I(u)$.
+Hence some $v\in N_I(u)$ is adjacent to all of $K_0$.
+Since $v\in I$, it has no neighbour in $I_0$, and therefore
+$N_{I'}(v)=K_0$.
+
+As $N_I(u)\subseteq D$ and $N_I(u)\cap I'=\varnothing$, we have
+$v\in D\setminus I'$.
+Moreover, $|I'\cap D|=|I\cap D|$, so the second choice of $(I,u)$
+gives $|N_{I'}(z)|\leq m$ for every $z\in D\setminus I'$.
+Equality holds for $v$, proving that $(I',v)$ attains the same two
+maxima as $(I,u)$.
+\end{proof}
+
+
+Fix such a vertex $v$.
+In particular, $uv\in E(G)$.
+Lemma~\ref{prop:s3-omitted-vertices} and
+Lemma~\ref{lem:s3-structure} apply to the pair $(I',v)$, with the
+same value of $m$.
+The sets corresponding to $N_I(u)$ and $I_0$ are $K_0$ and
+$I'\setminus K_0=I_0$, respectively; in
+Lemma~\ref{lem:s3-structure}, the cycle may be any oriented Hamilton
+cycle $C'$ of $G-v$.
+Set $k=|I_0|$, so $\alpha=m+k$, and   set
+$T=N_G(u)\setminus N_I(u)$ and $T'=N_G(v)\setminus K_0$.
+We have $k\geq 1$, since $a$ has a neighbour in $I_0$.
+Applying Lemma~\ref{lem:s3-structure}\textup{(i)} to both pairs gives
+$|T|\leq k-1$ and $|T'|\leq k-1$.
+
+\section{Proof of Theorem~\ref{thm:main}}
+\label{sec:proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Suppose, to the contrary, that $G$ is a non-Hamiltonian graph satisfying
+the hypotheses.
+Choose the pair $(I,u)$ by maximizing $|I\cap D|$ over all pairs
+with $I$ a maximum independent set and $u\in D\setminus I$, and
+then maximizing $|N_I(u)|$ over all pairs attaining the first maximum.
+Take the oriented Hamilton cycle $C$ of $G-u$ and the sets
+$I_0,K_0,I'$ used in the construction preceding
+Lemma~\ref{lem:secindependent}, and choose $v$ as in that lemma.
+In particular, $C$ is fixed together with these sets and
+\[
+ I_0=I\cap I',\qquad
+ K_0=\{u\}\cup\bigl(N_I(u)_C^-\setminus\{a\}\bigr),\qquad
+ I'=I_0\cup K_0,
+\]
+where $a$ is the unique vertex of $N_I(u)_C^-$ with a neighbour
+in $I_0$. We have $N_{I'}(v)=K_0$, $|N_I(u)|=|K_0|=m$,
+$uv\in E(G)$, and $(I',v)$ attains the same two maxima.
+Choose any oriented Hamilton cycle $C'$ of $G-v$.
+
+Retain $T=N_G(u)\setminus N_I(u)$ and
+$T'=N_G(v)\setminus K_0$, and   set
+$S=N_G(I_0)$ and
+$p=|N_I(u)_C^-\cap N_I(u)_C^+|$.
+
+  Set $x=a_C^-$ and $y=a_C^+\in N_I(u)$.
+By Lemma~\ref{lem:s3-structure}\textup{(ii)}, $a\notin D$,
+$N_I(a)\supsetneq N_I(u)$, and $ux\notin E(G)$; in particular,
+$x\notin N_I(u)$.
+Deleting $a$ from $C$ and adding $yu$ gives the Hamilton path
+$P_0=x\overleftarrow{C}yu$ of $G-a$.
+
+We rotate paths obtained from $P_0$ while keeping $x$ fixed.
+For a path $P=v_0v_1\cdots v_s$ with $v_0=x$ and $v_s=w$,
+and an edge $wv_i$ with $1\leq i\leq s-2$, replace
+$v_iv_{i+1}$ by $v_iw$ to obtain the path
+$v_0v_1\cdots v_iwv_{s-1}\cdots v_{i+1}$.
+Let $W$ be the set of endvertices other than $x$ of all paths obtained
+from $P_0$ by a sequence of these rotations, including $u$.
+
+Let $P$ be any such path, with ends $x,w$.
+An edge $wa$ would give the Hamilton cycle $axPwa$ of $G$.
+An edge $wx$ would close $P$ to a Hamilton cycle of $G-a$,
+contrary to $a\notin D$.
+Thus $W$ has no edges to $\{a,x\}$.
+An edge within $W$, together with $ax$, would induce a $2K_2$;
+hence $W$ is independent.
+Consequently, each vertex of $W$ is isolated in $G-N_G(W)$,
+and the edge $ax$ remains.
+Let $H$ be the component of $G-N_G(W)$ containing $ax$.
+Since $G$ is $2K_2$-free, every other component is an isolated vertex.
+Let $h$ be the number of vertices of $P_0$ with two neighbours in $W$
+along $P_0$.
+
+\begin{claim}\label{claim:n}
+    $n=2|W|-1-h+\alpha+|V(H)\setminus I|$.
+\end{claim}
+
+\begin{proof}
+We first establish
+\begin{equation}\label{eq:s4-rotation-properties}
+ N_G(W)=N_{P_0}(W),\qquad
+ W\setminus I=K_0,\qquad
+ N_G(W)\cap I=N_I(u).
+\end{equation}
+The inclusion $N_{P_0}(W)\subseteq N_G(W)$ is immediate.
+Suppose that $z\in N_G(W)\setminus N_{P_0}(W)$.
+Then $z\notin W\cup\{a,x\}$.
+If a rotation first changes an edge incident with $z$, then $z$ must
+be its pivot, since both the old and the new endvertex belong to $W$.
+The edge deleted at $z$ is still an edge of $P_0$, and its other end
+becomes a member of $W$, contrary to $z\notin N_{P_0}(W)$.
+Thus all path edges incident with $z$ remain unchanged in every
+rotation sequence.
+Choose a path $P$ obtained from $P_0$ whose end $w$ is adjacent to $z$.
+If $wz$ is an edge of $P$, it is an edge of $P_0$, a contradiction.
+Otherwise, a rotation at $z$ makes an original $P_0$-neighbour of $z$
+an endvertex,   a contradiction.
+This proves $N_G(W)=N_{P_0}(W)$.
+
+For each $z\in N_G(u)\setminus\{y\}$, a rotation of $P_0$ at $z$ has
+end $z_C^-$.
+These rotations are possible because $ux\notin E(G)$ and $y$ is the
+only neighbour of $u$ along $P_0$.
+Since $u\in W$ and
+$K_0=\{u\}\cup(N_I(u)_C^-\setminus\{a\})$, we obtain
+\begin{equation}\label{eq:s4-initial-rotations}
+ K_0\cup T_C^-\subseteq W.
+\end{equation}
+
+Suppose that $w\in W\setminus I$ has a neighbour $z\in I_0$.
+For every $t\in N_I(u)$, the edges $wz,ut$ have no cross edges
+$wu,zu,zt$.
+Hence $wt\in E(G)$, and $N_I(w)\supsetneq N_I(u)$.
+By the extremal choice of $u$, we have $w\notin D$.
+Take a path $P$ obtained from $P_0$ with ends $x,w$, and let $tw$
+be its last edge.
+The edges $ax,tw$ have four distinct ends, since
+$|V(P)|=n-1\geq4$.
+As $aw,xw\notin E(G)$, at least one of $at,xt$ is an edge.
+If $at\in E(G)$, then $axPt a$ is a Hamilton cycle of $G-w$,
+contrary to $w\notin D$.
+Otherwise, $xPtx$ is a cycle of order $n-2$ containing $I$.
+The two vertices outside this cycle are $a,w$; they are nonadjacent,
+so the cycle is dominating. Also, $|N_I(a)|>m$.
+Lemma~\ref{prop:s3-omitted-vertices} therefore gives $w\in D$,
+  a contradiction.
+
+It follows that $W\setminus I$ is anticomplete to $I_0$.
+Also, $W\cap N_I(u)=\varnothing$, since $u\in W$ is adjacent to
+every vertex of $N_I(u)$.
+Thus $I_0\cup(W\setminus I)$ is independent, so
+$|W\setminus I|\leq\alpha-k=m$.
+Together with \eqref{eq:s4-initial-rotations} and $|K_0|=m$, this gives
+$W\setminus I=K_0$.
+No vertex of $W$ has a neighbour in $I_0$, whereas $u$ is adjacent to
+every vertex of $N_I(u)$.
+Hence $N_G(W)\cap I=N_I(u)$, completing the proof of
+\eqref{eq:s4-rotation-properties}.
+In particular, $W\subseteq I'$.
+
+The independent set $W$ contains exactly one end of $P_0$.
+Counting the edges of $P_0$ incident with $W$ gives $2|W|-1$ edges.
+Each vertex of $N_{P_0}(W)$ is counted once, except that the $h$
+vertices with two neighbours in $W$ are counted twice.
+By \eqref{eq:s4-rotation-properties},
+$|N_G(W)|=2|W|-1-h$.
+
+Every vertex of $I'=I_0\cup K_0$ remains in $G-N_G(W)$.
+An isolated vertex outside $I'$ could be added to this maximum
+independent set, so every isolated vertex belongs to $I'$.
+Moreover, $N_I(u)\subseteq N_G(W)$ and every vertex of
+$K_0\subseteq W$ is isolated in $G-N_G(W)$.
+Consequently, $I'\cap V(H)=I\cap V(H)$, and the vertices outside
+$N_G(W)\cup I'$ are precisely $V(H)\setminus I$.
+Therefore
+\[
+ n=|N_G(W)|+\alpha+|V(H)\setminus I|
+  =2|W|-1-h+\alpha+|V(H)\setminus I|,
+\]
+as required.
+\end{proof}
+
+\begin{claim}\label{claim:h}
+    $h\geq p+|T|+|W|-\alpha$.
+\end{claim}
+
+\begin{proof}
+There are $p$ oriented subpaths $v_0v_1v_2$ of $C$ with
+$v_0,v_2\in N_I(u)$.
+For each such subpath,
+$v_1\in N_I(u)_C^-\cap N_I(u)_C^+$ and $v_1\neq a$, since
+$a_C^-=x\notin N_I(u)$.
+Thus $v_1\in K_0\subseteq W$.
+If $v_0\neq y$, then
+$(v_0)_C^-\in N_I(u)_C^-\setminus\{a\}\subseteq W$,
+and both cycle edges incident with $v_0$ remain on $P_0$.
+If $v_0=y$, its neighbour $a$ on $C$ is replaced on $P_0$ by
+$u\in W$.
+In either case, $v_0$ has two neighbours in $W$ along $P_0$.
+Distinct subpaths give distinct vertices $v_0$, accounting for $p$
+vertices of $N_I(u)$ counted by $h$.
+
+By Lemma~\ref{lem:s3-structure}\textup{(iii)} and
+\eqref{eq:s4-initial-rotations},
+$T_C^-\subseteq W\cap I_0$ and $T_C^+\subseteq I_0$.
+If $t\in T$ and $t_C^+\in W$, then both neighbours of $t$ on $C$
+belong to $W$.
+Its incident cycle edges remain on $P_0$: the vertex $t$ differs from
+$a,x$, which are nonadjacent to $u$, and from $y\in I$.
+Thus $t$ is    counted by $h$.
+These vertices lie outside $I$ and are distinct from those already
+counted in $N_I(u)$.
+Their number is at least
+ $|T_C^+\cap W|
+ \geq |T|+|W\cap I_0|-k
+ =|T|+|W|-\alpha,$
+where the equality follows from
+$W\cap N_I(u)=\varnothing$, $W\setminus I=K_0$, and $|K_0|=m$.
+Adding the two counts proves the claim.
+\end{proof}
+
+\begin{claim}\label{claim:|W|+|V(H)setminus I|}
+    $|W|+|V(H)\setminus I|\leq\alpha-1$.
+\end{claim}
+
+\begin{proof}
+Let $z\in V(H)\setminus I$.
+As shown in Claim~\ref{claim:n},
+$I'\cap V(H)=I\cap V(H)$, so $z\notin I'$.
+The maximality of $I'$ gives a neighbour $y\in I'$.
+Since all of $I'$ remains in $G-N_G(W)$, we have
+$y\in I'\cap V(H)=I\cap V(H)\subseteq I_0$.
+For any $t\in N_I(u)$, the edges $zy,ut$ have no cross edges
+$zu,yu,yt$: the first is absent because $u\in W$ and
+$z\notin N_G(W)$, the second because $y\in I_0$, and the third
+because $I$ is independent.
+Hence $zt\in E(G)$.
+In particular, $z$ is adjacent to $v\in N_I(u)$.
+As $K_0\cap V(H)=\varnothing$, it follows that $z\in T'$.
+
+By Lemma~\ref{lem:s3-structure}\textup{(iii)} applied to
+$(I',v,C')$, both neighbours of $z$ on $C'$ belong to $I_0$.
+They    lie in $H$, since all vertices of $I_0$ survive the deletion
+of $N_G(W)$.
+Thus $C'[V(H)]$ is bipartite with parts $I\cap V(H)$ and
+$V(H)\setminus I$, and every vertex of the latter part has degree two.
+Since $v\in N_I(u)\subseteq N_G(W)$, all of $H$ lies on $C'$.
+The vertex $u$ lies on $C'$ but outside $H$, so $C'[V(H)]$ is a
+nonempty forest with exactly $2|V(H)\setminus I|$ edges.
+Consequently,
+ $|I\cap V(H)|-|V(H)\setminus I|
+ =\omega\bigl(C'[V(H)]\bigr)\geq1$.
+The disjoint sets $W$ and $I\cap V(H)$ are both contained in $I'$.
+Therefore
+$ |W|+|V(H)\setminus I|
+ \leq |W|+|I\cap V(H)|-1
+ \leq\alpha-1,$
+proving the claim.
+\end{proof}
+
+\medskip
+Combining Claims~\ref{claim:n}--\ref{claim:|W|+|V(H)setminus I|},
+we obtain
+\[
+\begin{aligned}
+ n
+ &=2|W|-1-h+\alpha+|V(H)\setminus I|\\
+ &\leq |W|+2\alpha-1-p-|T|+|V(H)\setminus I|\\
+ &\leq 3\alpha-2-p-|T|.
+\end{aligned}
+\]
+By Lemma~\ref{lem:s3-structure}\textup{(ii)}, each of
+$N_I(u)_C^-$ and $N_I(u)_C^+$ contains exactly one vertex with
+a neighbour in $I_0$.
+Their union has $2m-p$ vertices and is contained in
+$V(C)\setminus I$.
+Also, $S\subseteq V(C)\setminus I$, since $I$ is independent and
+$u$ has no neighbour in $I_0$.
+Thus
+\[
+\begin{aligned}
+ |S|
+ &\leq |V(C)\setminus I|-(2m-p)+2\\
+ &=n-\alpha-2m+p+1\\
+ &\leq 2\alpha-2m-1-|T|\\
+ &=2k-1-|T|.
+\end{aligned}
+\]
+
+We next show that $S=T\cup T'$.
+By Lemma~\ref{lem:s3-structure}\textup{(iii)}, every vertex of $T$
+has both neighbours on $C$ in $I_0$.
+Applying the same result to $(I',v,C')$ shows that every vertex of
+$T'$ has both neighbours on $C'$ in $I_0$.
+Hence $T\cup T'\subseteq S$.
+Conversely, let $y\in I_0$ and $z\in N_G(y)$.
+Since $yu,yv\notin E(G)$, the edges $yz,uv$ force
+$zu\in E(G)$ or $zv\in E(G)$.
+Neither $N_I(u)$ nor $K_0$ has an edge to $I_0$, so
+$z\in T\cup T'$.
+This proves $S=T\cup T'$.
+
+The degree bound in Lemma~\ref{lem:s3-structure}\textup{(i)},
+applied to $(I',v)$, gives
+$|T'|=d_G(v)-m\leq\alpha-1-m=k-1$.
+Therefore
+$ |S|\leq |T|+|T'|\leq |T|+k-1$.
+Adding the two bounds on $|S|$ yields $2|S|\leq3k-2$.
+On the other hand, every vertex of $I_0$ is isolated in $G-S$,
+while the edge $uv$ remains.
+Hence $\omega(G-S)\geq k+1\geq2$, and the toughness condition gives
+$
+ 2|S|\geq3\omega(G-S)\geq3(k+1)$,
+a contradiction.
+\end{proof}
+
+
+
+
+
+\begin{thebibliography}{99}
+\bibitem{BauerBroersmaSchmeichel2006}
+D. Bauer, H. J. Broersma, and E. Schmeichel, Toughness in graphs---A survey, \emph{Graphs Combin.} \textbf{22} (2006), no. 1, 1--35.
+
+\bibitem{BauerBroersmaVeldman2000}
+D. Bauer, H. J. Broersma, and H. J. Veldman, Not every $2$-tough graph is Hamiltonian, \emph{Discrete Applied Mathematics} \textbf{99} (2000), no.~1--3, 317--321.
+
+
+
+\bibitem{Chvatal1973}
+V. Chv{\'a}tal, Tough graphs and hamiltonian circuits, \emph{Discrete Mathematics} \textbf{5} (1973), no.~3, 215--228.
+
+
+\bibitem{KratschLehelMuller1996}
+Dieter Kratsch, Jen{\H o} Lehel, and Haiko M{\"u}ller, Toughness, hamiltonicity and split graphs, \emph{Discrete Mathematics} \textbf{150} (1996), no.~1--3, 231--245.
+
+\bibitem{BroersmaPatelPyatkin2014}
+Hajo Broersma, Viresh Patel, and Artem Pyatkin, On toughness and hamiltonicity of {$2K_2$}-free graphs, \emph{Journal of Graph Theory} \textbf{75} (2014), no.~3, 244--255.
+
+\bibitem{Shan2020}
+Songling Shan, {Hamiltonian} cycles in {$3$}-tough {$2K_2$}-free graphs, \emph{Journal of Graph Theory} \textbf{94} (2020), no.~3, 349--363.
+
+\bibitem{OtaSanka2022}
+Katsuhiro Ota and Masahiro Sanka, {Hamiltonian} cycles in {$2$}-tough {$2K_2$}-free graphs, \emph{Journal of Graph Theory} \textbf{101} (2022), no.~4, 769--781.
+
+
+
+\end{thebibliography}
+
+\end{document}

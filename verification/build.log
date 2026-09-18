@@ -1,0 +1,23 @@
+ℹ [3049/3050] Replayed Audit
+info: Audit.lean:9:0: AXIOM AUDIT PASSED: 348 Broersma declarations, 228 theorems; no sorryAx or unapproved axiom.
+info: Audit.lean:9:0: MAIN THEOREM STATUS: OPEN. main_of_configuration requires the unproved InternalConstruction premise.
+info: Audit.lean:31:0: 'Broersma.TwoK2Free.neighbors_comparable' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Audit.lean:32:0: 'Broersma.TwoK2Free.edge_components_equal' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Audit.lean:33:0: 'Broersma.longest_admissible_path_dominating' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Audit.lean:34:0: 'Broersma.ExtremalPair.exchange' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Audit.lean:35:0: 'Broersma.FinalConfiguration.impossible' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Audit.lean:36:0: 'Broersma.main_of_configuration' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Audit.lean:37:0: 'Broersma.split_completion_hamiltonian' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound,
+ Broersma.External.split_hamiltonian]
+info: Audit.lean:38:0: 'Broersma.near_cycle_external_structure' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound,
+ Broersma.External.coabsorbable_successors,
+ Broersma.External.two_factor]
+info: Audit.lean:39:0: 'Broersma.sharpness' depends on axioms: [propext, Classical.choice, Quot.sound, Broersma.External.chvatal_properties]
+info: Audit.lean:41:0: Broersma.MainTheoremStatement.{u} {V : Type u} [Fintype V] [DecidableEq V] (G : SimpleGraph V) : Prop
+info: Audit.lean:42:0: Broersma.main_of_configuration.{u} {V : Type u} [Fintype V] [DecidableEq V] (G : SimpleGraph V)
+  (construct : Broersma.InternalConstruction G) : Broersma.MainTheoremStatement G
+Build completed successfully (3050 jobs).

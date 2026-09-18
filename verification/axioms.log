@@ -1,0 +1,21 @@
+AXIOM AUDIT PASSED: 348 Broersma declarations, 228 theorems; no sorryAx or unapproved axiom.
+MAIN THEOREM STATUS: OPEN. main_of_configuration requires the unproved InternalConstruction premise.
+'Broersma.TwoK2Free.neighbors_comparable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Broersma.TwoK2Free.edge_components_equal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Broersma.longest_admissible_path_dominating' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Broersma.ExtremalPair.exchange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Broersma.FinalConfiguration.impossible' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Broersma.main_of_configuration' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Broersma.split_completion_hamiltonian' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound,
+ Broersma.External.split_hamiltonian]
+'Broersma.near_cycle_external_structure' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound,
+ Broersma.External.coabsorbable_successors,
+ Broersma.External.two_factor]
+'Broersma.sharpness' depends on axioms: [propext, Classical.choice, Quot.sound, Broersma.External.chvatal_properties]
+Broersma.MainTheoremStatement.{u} {V : Type u} [Fintype V] [DecidableEq V] (G : SimpleGraph V) : Prop
+Broersma.main_of_configuration.{u} {V : Type u} [Fintype V] [DecidableEq V] (G : SimpleGraph V)
+  (construct : Broersma.InternalConstruction G) : Broersma.MainTheoremStatement G

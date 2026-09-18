@@ -1,0 +1,21 @@
+{
+  "checked_at_utc": "2026-09-18T06:29:02.417194+00:00",
+  "source_sha256": "43fbe3924a01ab6b97d547042bb5f4b60d9e6143789e1677bd30c6d5bb8fd42c",
+  "snapshot_matches": true,
+  "original_matches_if_present": true,
+  "lean": "Lean (version 4.33.0-rc2, arm64-apple-darwin24.6.0, commit d8b18978322de05a8f3dba51ef03cf5461676c17, Release)",
+  "build_exit_code": 0,
+  "axiom_audit_exit_code": 0,
+  "warnings": false,
+  "partial_library_verified": true,
+  "complete_main_exit_code": 1,
+  "complete_main_verified": false,
+  "status": "PARTIAL",
+  "main_proof_obligation": "Broersma.InternalConstruction",
+  "external_axioms": [
+    "Broersma.External.split_hamiltonian",
+    "Broersma.External.two_factor",
+    "Broersma.External.coabsorbable_successors",
+    "Broersma.External.chvatal_properties"
+  ]
+}
