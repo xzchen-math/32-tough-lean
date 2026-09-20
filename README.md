@@ -1,71 +1,73 @@
-# v4.tex 的 Lean 形式化工程
+# 32-tough-lean
 
-**当前状态：部分形式化。现有模块已通过 Lean 编译与公理依赖审计，但论文主定理尚未完成无条件的 Lean 验证。**
+A Lean formalization project for the manuscript `v4.tex` on Hamiltonicity of 3/2-tough, 2K₂-free graphs.
 
-原稿为 `../3:2-tough-2K_2-free/论文/v4.tex`。`source/v4.tex` 保留了本次处理的副本；`source/metadata.json` 记录 SHA-256。原文件没有修改。
+**Current status: partial formalization. The existing modules pass Lean compilation and the axiom dependency audit, but the manuscript's main theorem has not yet been proved unconditionally in Lean.**
 
-## 已验证的内容
+The original manuscript is `../3:2-tough-2K_2-free/论文/v4.tex`. An unchanged snapshot is included as `source/v4.tex`, with its SHA-256 recorded in `source/metadata.json`. The original file has not been modified.
 
-- 图、独立集、最大独立集、邻域、删点后的连通分支、3/2-toughness、简单路径、简单圈与 Hamilton 性的定义。Hamilton 性已与 mathlib 的定义在至少三个顶点时证明等价。
-- Fact 2.1 的三个结构性质，包括独立集邻域的可比性、邻域并由一个顶点实现，以及删点后含边的连通分支至多一个。
-- Claim 2.1：最长的合格路径是支配路径；包含真实的路径延长构造。
-- 阈值删除、交换、二换一的计数，以及有界严格增长序列的终止论证。
-- 两次有限极大化的选择；给定前驱集合性质后的最大独立集交换论证。
-- 第 4 节的邻域并集恒等式、两个集合计数上界、孤立点贡献的真实连通分支下界，以及最终韧性矛盾。
-- 给定 `FinalConfiguration` 后的最终推导。**构造该配置仍是待证内容。**
-- Chvátal 例子的具体图、split 性、2K₂-free 性、顶点数和阈值逼近；例子的韧性及非 Hamilton 性使用文献黑箱，随后证明了对每个实数 `t < 3/2` 的 sharpness 结论。
+## Verified results
 
-详细对应见 [STATUS.md](STATUS.md)。不要把这里的辅助定理数量解释为论文已形式化的比例。
+- Definitions of graphs, independent sets, maximum independent sets, neighborhoods, connected components after vertex deletion, 3/2-toughness, simple paths, simple cycles, and Hamiltonicity. For graphs with at least three vertices, the Hamiltonicity definition is proved equivalent to mathlib's definition.
+- The three structural properties in Fact 2.1: comparability of neighborhoods of vertices in an independent set, realization of their neighborhood union by a single vertex, and the existence of at most one component containing an edge after vertex deletion.
+- Claim 2.1: a longest admissible path is dominating, including an explicit path-extension construction.
+- Counting arguments for threshold deletion, exchanges, and two-for-one exchanges, together with termination of bounded strictly increasing sequences.
+- Two finite maximization steps and the maximum-independent-set exchange argument under the required predecessor-set properties.
+- The neighborhood-union identity in Section 4, two upper bounds on set sizes, a lower bound on the actual number of connected components contributed by isolated vertices, and the final toughness contradiction.
+- The final deduction from a given `FinalConfiguration`. **Constructing this configuration remains an open proof obligation.**
+- The explicit graphs in Chvátal's example, their split and 2K₂-free properties, vertex counts, and convergence to the threshold. Their toughness and non-Hamiltonicity are taken from the literature as black-box results; these are then used to prove sharpness for every real number `t < 3/2`.
 
-## 尚未完成
+See [STATUS.md](STATUS.md) for the detailed correspondence with the manuscript. The number of auxiliary theorems should not be interpreted as the fraction of the manuscript that has been formalized.
 
-论文中的前驱结构引理、路径/圈阶数界、受限圈族推论、近生成圈、两个遗漏顶点引理、结构引理的主要部分，以及旋转端点集合与三个计数 claim 的构造证明仍未全部形式化。
+## Remaining proof obligations
 
-`Broersma/Manuscript.lean` 用 `def ...Statement : Prop` 保存已转写的待证命题。这些定义不宣称命题为真。受限圈族推论的阶段闭包条件及完整旋转过程尚未逐条转写。
+The predecessor-structure lemmas, path and cycle order bounds, restricted-cycle-family corollary, almost-spanning cycle, two omitted-vertex lemmas, major parts of the structural lemma, and constructions of the rotation endpoint sets and the three counting claims have not all been formalized.
 
-`Broersma/MainReduction.lean` 中的
+`Broersma/Manuscript.lean` records translated but unproved propositions as `def ...Statement : Prop`. These definitions do not assert that the propositions are true. The stage-closure condition in the restricted-cycle-family corollary and the full rotation process have not yet been transcribed in full.
+
+The theorem in `Broersma/MainReduction.lean`,
 
 ```lean
 theorem main_of_configuration (G : SimpleGraph V)
     (construct : InternalConstruction G) : MainTheoremStatement G
 ```
 
-明确带有尚未证明的内部假设 `construct`。当前工程没有无条件的 `Broersma.main`。`FinalConfiguration` 是足以推出矛盾的数据与性质记录；其字段中的三个 claim 是假设，并非在声明结构时就获得了证明。
+explicitly requires the unproved internal hypothesis `construct`. There is currently no unconditional `Broersma.main`. `FinalConfiguration` is a record of data and properties sufficient to derive a contradiction; its three claim fields are assumptions, not proofs obtained merely by declaring the structure.
 
-## 文献黑箱
+## External black-box results
 
-四项自定义公理集中在 `Broersma/External.lean`，各有出处：
+The four custom axioms are collected in `Broersma/External.lean`, each with a source:
 
-1. Kratsch–Lehel–Müller：3/2-tough split 图的 Hamilton 性。
-2. Ota–Sanka，Proposition 1.6：2-factor 的存在。
-3. Ota–Sanka，Lemma 3.3 及其证明的近生成圈特例：后继集独立性与度上界。
-4. Chvátal 已发表的 split 图例子的精确韧性、非 Hamilton 性和无 2-factor 性；仅用于 sharpness。
+1. Kratsch–Lehel–Müller: Hamiltonicity of 3/2-tough split graphs.
+2. Ota–Sanka, Proposition 1.6: existence of a 2-factor.
+3. Ota–Sanka, Lemma 3.3 and the almost-spanning-cycle special case of its proof: independence of the successor set and a degree bound.
+4. The exact toughness, non-Hamiltonicity, and absence of a 2-factor for Chvátal's published split-graph examples, used only for sharpness.
 
-没有把本文内部的未证引理声明为公理，没有使用 `sorry`、`admit` 或 `native_decide`。证明允许 Lean/mathlib 通常使用的 `propext`、`Classical.choice` 和 `Quot.sound`。`Audit.lean` 自动拒绝任何额外的公理依赖。
+No unproved internal lemma from this manuscript is declared as an axiom. The project does not use `sorry`, `admit`, or `native_decide`. Proofs may use the standard Lean/mathlib axioms `propext`, `Classical.choice`, and `Quot.sound`. `Audit.lean` automatically rejects any additional axiom dependencies.
 
-## 运行验证
+## Running verification
 
-固定 Lean 与 mathlib 为 `v4.33.0-rc2`，mathlib commit 为 `51e6992efd06126df61a496bebf8f49482a4e129`。Lake 的依赖版本记录在 `lake-manifest.json`。本机已复制可用的依赖缓存，工程不依赖另一个项目的绝对导入路径。
+Lean and mathlib are pinned to `v4.33.0-rc2`, with mathlib at commit `51e6992efd06126df61a496bebf8f49482a4e129`. Lake dependency revisions are recorded in `lake-manifest.json`. The local project has a copied dependency cache and does not rely on absolute import paths into another project.
 
-在本机工程目录或克隆后的仓库根目录执行：
+From the local project directory or the root of a cloned repository, run:
 
 ```sh
 lake build
 python3 verify.py
 ```
 
-默认验证命令检查已完成模块，并同时报告主定理检查的结果。**退出码 0 仅表示部分证明库和公理审计通过。**
+The default verification command checks the completed modules and also reports the outcome of the main-theorem check. **Exit code 0 means only that the partial proof library and the axiom audit passed.**
 
 ```sh
 python3 verify.py --require-complete
 ```
 
-此命令还会要求主定理仅从原文三个假设推出结论。当前预期退出码为 **2**，原因是主定理尚未证明。它不会接受带 `InternalConstruction` 附加假设的条件版本。
+This command additionally requires the main theorem to follow from only the manuscript's three hypotheses. The current expected exit code is **2**, because the main theorem has not yet been proved. The conditional version with the additional `InternalConstruction` hypothesis does not satisfy this check.
 
-实际日志保存在 `verification/`：`build.log`、`axioms.log`、`complete-main.log` 和 `report.json`。
+Verification logs are stored in `verification/`: `build.log`, `axioms.log`, `complete-main.log`, and `report.json`.
 
-在未附带缓存的新机器上，先安装指定 Lean，然后运行 `lake update` 和 `lake exe cache get`；这些命令需要网络。
+On a fresh machine without a dependency cache, first install the specified Lean version, then run `lake update` and `lake exe cache get`. These commands require network access.
 
-## 继续补全的位置
+## Next steps
 
-优先完成 `Manuscript.lean` 的前驱结构与圈/路径界，并实现真实旋转构造。最终需要证明 `InternalConstruction G`，再通过 `main_of_configuration` 定义无条件的 `Broersma.main`。完成后运行严格验证，并核对 `#print axioms Broersma.main` 仅包含上述允许的文献公理及 Lean 的基础公理。
+First complete the predecessor-structure results and cycle/path bounds in `Manuscript.lean`, and implement the actual rotation construction. Ultimately, prove `InternalConstruction G` and use `main_of_configuration` to define an unconditional `Broersma.main`. Then run strict verification and check that `#print axioms Broersma.main` lists only the permitted external axioms and Lean's foundational axioms described above.
